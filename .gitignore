@@ -1,0 +1,5 @@
+/Pods
+/build
+.DS_Store
+*.xcbkptlist
+
