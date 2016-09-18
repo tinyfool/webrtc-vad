@@ -10,6 +10,6 @@
 
 @interface ViewController : UIViewController
 
-
++(id)shardVad;
 @end
 

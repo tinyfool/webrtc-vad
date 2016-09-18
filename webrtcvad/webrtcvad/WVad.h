@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "webrtc/common_audio/vad/include/webrtc_vad.h"
+typedef struct WebRtcVadInst VadInst;
 
-@interface vad : NSObject {
+@interface WVad : NSObject {
     
     VadInst *_vad;
 }

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <webrtcvad/WVad.h>
 //! Project version number for webrtcvad.
 FOUNDATION_EXPORT double webrtcvadVersionNumber;
 
