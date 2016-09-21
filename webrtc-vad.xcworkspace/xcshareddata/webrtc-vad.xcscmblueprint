@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "56564E7DAA6D63795494E81474AA69ED8A0BD710",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "56564E7DAA6D63795494E81474AA69ED8A0BD710" : 9223372036854775807,
+    "4355B97145BD9DA470F26FF52E6AD8226794DDEF" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B7EB1482-228E-449B-9D14-0062A1F74AD8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "56564E7DAA6D63795494E81474AA69ED8A0BD710" : "webrtc-vad\/",
+    "4355B97145BD9DA470F26FF52E6AD8226794DDEF" : "py-webrtcvad\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "webrtc-vad",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "webrtc-vad.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wiseman\/py-webrtcvad.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4355B97145BD9DA470F26FF52E6AD8226794DDEF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/tinyfool\/webrtc-vad.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "56564E7DAA6D63795494E81474AA69ED8A0BD710"
+    }
+  ]
+}

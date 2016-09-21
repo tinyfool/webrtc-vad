@@ -18,13 +18,20 @@
         
         WebRtcVad_Create(&_vad);
         WebRtcVad_Init(_vad);
-    
+        WebRtcVad_set_mode(_vad, 0);
     }
     return self;
 }
 
 -(int)isVoice:(const int16_t*)audio_frame sample_rate:(int)fs length:(int) frame_length {
 
-    return WebRtcVad_Process(_vad,fs,audio_frame,frame_length);
+    VadInst *_vad1;
+    WebRtcVad_Create(&_vad1);
+    WebRtcVad_Init(_vad1);
+    WebRtcVad_set_mode(_vad1, 0);
+
+    int voice = WebRtcVad_Process(_vad1,fs,audio_frame,frame_length);
+    WebRtcVad_Free(_vad1);
+    return voice;
 }
 @end

@@ -99,6 +99,7 @@ static void InitFunctionPointers(void) {
   InitPointersToC();
 #endif  /* WEBRTC_DETECT_ARM_NEON */
 }
+
 #define WEBRTC_POSIX
 
 #if defined(WEBRTC_POSIX)
