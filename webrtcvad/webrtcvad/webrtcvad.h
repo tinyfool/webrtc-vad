@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <webrtcvad/WVad.h>
+#import <webrtcvad/WVVad.h>
+#import <webrtcvad/WVAudioSegment.h>
+
 //! Project version number for webrtcvad.
 FOUNDATION_EXPORT double webrtcvadVersionNumber;
 

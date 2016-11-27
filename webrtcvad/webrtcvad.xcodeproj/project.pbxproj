@@ -10,8 +10,8 @@
 		157B45B01D8CDD97008DC706 /* webrtcvad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B45A61D8CDD97008DC706 /* webrtcvad.framework */; };
 		157B45B51D8CDD97008DC706 /* webrtcvadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B45B41D8CDD97008DC706 /* webrtcvadTests.m */; };
 		157B45B71D8CDD97008DC706 /* webrtcvad.h in Headers */ = {isa = PBXBuildFile; fileRef = 157B45A91D8CDD97008DC706 /* webrtcvad.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		157B46451D8CDEC7008DC706 /* WVad.h in Headers */ = {isa = PBXBuildFile; fileRef = 157B46431D8CDEC7008DC706 /* WVad.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		157B46461D8CDEC7008DC706 /* WVad.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B46441D8CDEC7008DC706 /* WVad.m */; };
+		157B46451D8CDEC7008DC706 /* WVVad.h in Headers */ = {isa = PBXBuildFile; fileRef = 157B46431D8CDEC7008DC706 /* WVVad.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		157B46461D8CDEC7008DC706 /* WVVad.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B46441D8CDEC7008DC706 /* WVVad.m */; };
 		157B46571D8CDFDC008DC706 /* complex_fft_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 157B46471D8CDFDB008DC706 /* complex_fft_tables.h */; };
 		157B46581D8CDFDC008DC706 /* resample_by_2_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 157B46481D8CDFDB008DC706 /* resample_by_2_internal.h */; };
 		157B46591D8CDFDC008DC706 /* complex_bit_reverse.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46491D8CDFDB008DC706 /* complex_bit_reverse.c */; };
@@ -37,6 +37,33 @@
 		157B46761D8CDFE6008DC706 /* vad_sp.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B466D1D8CDFE6008DC706 /* vad_sp.c */; };
 		157B46771D8CDFE6008DC706 /* vad_sp.h in Headers */ = {isa = PBXBuildFile; fileRef = 157B466E1D8CDFE6008DC706 /* vad_sp.h */; };
 		157B46781D8CDFE6008DC706 /* webrtc_vad.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B466F1D8CDFE6008DC706 /* webrtc_vad.c */; };
+		158024BE1DEB178000D960A6 /* AudioConvert.h in Headers */ = {isa = PBXBuildFile; fileRef = 158024BC1DEB178000D960A6 /* AudioConvert.h */; };
+		158024BF1DEB178000D960A6 /* AudioConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 158024BD1DEB178000D960A6 /* AudioConvert.m */; };
+		158024C31DEB2D6E00D960A6 /* WVAudioSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = 158024C11DEB2D6E00D960A6 /* WVAudioSegment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		158024C41DEB2D6E00D960A6 /* WVAudioSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 158024C21DEB2D6E00D960A6 /* WVAudioSegment.m */; };
+		15DFF48F1D92E3C3007C2411 /* webrtcvadmac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15DFF4861D92E3C3007C2411 /* webrtcvadmac.framework */; };
+		15DFF4941D92E3C3007C2411 /* webrtcvadmacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15DFF4931D92E3C3007C2411 /* webrtcvadmacTests.m */; };
+		15DFF4961D92E3C3007C2411 /* webrtcvadmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 15DFF4881D92E3C3007C2411 /* webrtcvadmac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15DFF49D1D92ECB8007C2411 /* vad_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46671D8CDFE6008DC706 /* vad_core.c */; };
+		15DFF49F1D92ECB8007C2411 /* vad_filterbank.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46691D8CDFE6008DC706 /* vad_filterbank.c */; };
+		15DFF4A11D92ECB8007C2411 /* vad_gmm.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B466B1D8CDFE6008DC706 /* vad_gmm.c */; };
+		15DFF4A31D92ECB8007C2411 /* vad_sp.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B466D1D8CDFE6008DC706 /* vad_sp.c */; };
+		15DFF4A51D92ECB8007C2411 /* webrtc_vad.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B466F1D8CDFE6008DC706 /* webrtc_vad.c */; };
+		15DFF4A81D92ECB8007C2411 /* complex_bit_reverse.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46491D8CDFDB008DC706 /* complex_bit_reverse.c */; };
+		15DFF4A91D92ECB8007C2411 /* complex_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B464A1D8CDFDB008DC706 /* complex_fft.c */; };
+		15DFF4AA1D92ECB8007C2411 /* cross_correlation.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B464B1D8CDFDB008DC706 /* cross_correlation.c */; };
+		15DFF4AB1D92ECB8007C2411 /* division_operations.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B464C1D8CDFDB008DC706 /* division_operations.c */; };
+		15DFF4AC1D92ECB8007C2411 /* downsample_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B464D1D8CDFDB008DC706 /* downsample_fast.c */; };
+		15DFF4AD1D92ECB8007C2411 /* energy.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B464E1D8CDFDB008DC706 /* energy.c */; };
+		15DFF4AE1D92ECB8007C2411 /* get_scaling_square.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B464F1D8CDFDB008DC706 /* get_scaling_square.c */; };
+		15DFF4AF1D92ECB8007C2411 /* min_max_operations.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46501D8CDFDB008DC706 /* min_max_operations.c */; };
+		15DFF4B01D92ECB8007C2411 /* real_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46511D8CDFDB008DC706 /* real_fft.c */; };
+		15DFF4B11D92ECB8007C2411 /* resample_48khz.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46521D8CDFDB008DC706 /* resample_48khz.c */; };
+		15DFF4B21D92ECB8007C2411 /* resample_by_2_internal.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46531D8CDFDB008DC706 /* resample_by_2_internal.c */; };
+		15DFF4B31D92ECB8007C2411 /* resample_fractional.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46541D8CDFDB008DC706 /* resample_fractional.c */; };
+		15DFF4B41D92ECB8007C2411 /* spl_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46551D8CDFDB008DC706 /* spl_init.c */; };
+		15DFF4B51D92ECB8007C2411 /* vector_scaling_operations.c in Sources */ = {isa = PBXBuildFile; fileRef = 157B46561D8CDFDB008DC706 /* vector_scaling_operations.c */; };
+		15DFF4B71D92ECB8007C2411 /* WVVad.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B46441D8CDEC7008DC706 /* WVVad.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +74,13 @@
 			remoteGlobalIDString = 157B45A51D8CDD97008DC706;
 			remoteInfo = webrtcvad;
 		};
+		15DFF4901D92E3C3007C2411 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 157B459D1D8CDD97008DC706 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15DFF4851D92E3C3007C2411;
+			remoteInfo = webrtcvadmac;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -56,8 +90,8 @@
 		157B45AF1D8CDD97008DC706 /* webrtcvadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = webrtcvadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		157B45B41D8CDD97008DC706 /* webrtcvadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = webrtcvadTests.m; sourceTree = "<group>"; };
 		157B45B61D8CDD97008DC706 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		157B46431D8CDEC7008DC706 /* WVad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVad.h; sourceTree = "<group>"; };
-		157B46441D8CDEC7008DC706 /* WVad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVad.m; sourceTree = "<group>"; };
+		157B46431D8CDEC7008DC706 /* WVVad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVVad.h; sourceTree = "<group>"; };
+		157B46441D8CDEC7008DC706 /* WVVad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVVad.m; sourceTree = "<group>"; };
 		157B46471D8CDFDB008DC706 /* complex_fft_tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = complex_fft_tables.h; path = webrtc/webrtc/common_audio/signal_processing/complex_fft_tables.h; sourceTree = "<group>"; };
 		157B46481D8CDFDB008DC706 /* resample_by_2_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resample_by_2_internal.h; path = webrtc/webrtc/common_audio/signal_processing/resample_by_2_internal.h; sourceTree = "<group>"; };
 		157B46491D8CDFDB008DC706 /* complex_bit_reverse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = complex_bit_reverse.c; path = webrtc/webrtc/common_audio/signal_processing/complex_bit_reverse.c; sourceTree = "<group>"; };
@@ -83,6 +117,16 @@
 		157B466D1D8CDFE6008DC706 /* vad_sp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vad_sp.c; path = webrtc/webrtc/common_audio/vad/vad_sp.c; sourceTree = "<group>"; };
 		157B466E1D8CDFE6008DC706 /* vad_sp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vad_sp.h; path = webrtc/webrtc/common_audio/vad/vad_sp.h; sourceTree = "<group>"; };
 		157B466F1D8CDFE6008DC706 /* webrtc_vad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = webrtc_vad.c; path = webrtc/webrtc/common_audio/vad/webrtc_vad.c; sourceTree = "<group>"; };
+		158024BC1DEB178000D960A6 /* AudioConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioConvert.h; sourceTree = "<group>"; };
+		158024BD1DEB178000D960A6 /* AudioConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioConvert.m; sourceTree = "<group>"; };
+		158024C11DEB2D6E00D960A6 /* WVAudioSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVAudioSegment.h; sourceTree = "<group>"; };
+		158024C21DEB2D6E00D960A6 /* WVAudioSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVAudioSegment.m; sourceTree = "<group>"; };
+		15DFF4861D92E3C3007C2411 /* webrtcvadmac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = webrtcvadmac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15DFF4881D92E3C3007C2411 /* webrtcvadmac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = webrtcvadmac.h; sourceTree = "<group>"; };
+		15DFF4891D92E3C3007C2411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15DFF48E1D92E3C3007C2411 /* webrtcvadmacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = webrtcvadmacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15DFF4931D92E3C3007C2411 /* webrtcvadmacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = webrtcvadmacTests.m; sourceTree = "<group>"; };
+		15DFF4951D92E3C3007C2411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +145,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		15DFF4821D92E3C3007C2411 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15DFF48B1D92E3C3007C2411 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15DFF48F1D92E3C3007C2411 /* webrtcvadmac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -110,6 +169,8 @@
 				157B461A1D8CDE45008DC706 /* webrtc */,
 				157B45A81D8CDD97008DC706 /* webrtcvad */,
 				157B45B31D8CDD97008DC706 /* webrtcvadTests */,
+				15DFF4871D92E3C3007C2411 /* webrtcvadmac */,
+				15DFF4921D92E3C3007C2411 /* webrtcvadmacTests */,
 				157B45A71D8CDD97008DC706 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,6 +180,8 @@
 			children = (
 				157B45A61D8CDD97008DC706 /* webrtcvad.framework */,
 				157B45AF1D8CDD97008DC706 /* webrtcvadTests.xctest */,
+				15DFF4861D92E3C3007C2411 /* webrtcvadmac.framework */,
+				15DFF48E1D92E3C3007C2411 /* webrtcvadmacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,9 +190,13 @@
 			isa = PBXGroup;
 			children = (
 				157B45A91D8CDD97008DC706 /* webrtcvad.h */,
-				157B46431D8CDEC7008DC706 /* WVad.h */,
-				157B46441D8CDEC7008DC706 /* WVad.m */,
+				158024C11DEB2D6E00D960A6 /* WVAudioSegment.h */,
+				158024C21DEB2D6E00D960A6 /* WVAudioSegment.m */,
+				157B46431D8CDEC7008DC706 /* WVVad.h */,
+				157B46441D8CDEC7008DC706 /* WVVad.m */,
 				157B45AA1D8CDD97008DC706 /* Info.plist */,
+				158024BC1DEB178000D960A6 /* AudioConvert.h */,
+				158024BD1DEB178000D960A6 /* AudioConvert.m */,
 			);
 			path = webrtcvad;
 			sourceTree = "<group>";
@@ -191,6 +258,24 @@
 			name = vad;
 			sourceTree = "<group>";
 		};
+		15DFF4871D92E3C3007C2411 /* webrtcvadmac */ = {
+			isa = PBXGroup;
+			children = (
+				15DFF4881D92E3C3007C2411 /* webrtcvadmac.h */,
+				15DFF4891D92E3C3007C2411 /* Info.plist */,
+			);
+			path = webrtcvadmac;
+			sourceTree = "<group>";
+		};
+		15DFF4921D92E3C3007C2411 /* webrtcvadmacTests */ = {
+			isa = PBXGroup;
+			children = (
+				15DFF4931D92E3C3007C2411 /* webrtcvadmacTests.m */,
+				15DFF4951D92E3C3007C2411 /* Info.plist */,
+			);
+			path = webrtcvadmacTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -198,14 +283,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				157B46451D8CDEC7008DC706 /* WVad.h in Headers */,
+				157B46451D8CDEC7008DC706 /* WVVad.h in Headers */,
 				157B46751D8CDFE6008DC706 /* vad_gmm.h in Headers */,
+				158024C31DEB2D6E00D960A6 /* WVAudioSegment.h in Headers */,
 				157B45B71D8CDD97008DC706 /* webrtcvad.h in Headers */,
 				157B46771D8CDFE6008DC706 /* vad_sp.h in Headers */,
+				158024BE1DEB178000D960A6 /* AudioConvert.h in Headers */,
 				157B46731D8CDFE6008DC706 /* vad_filterbank.h in Headers */,
 				157B46581D8CDFDC008DC706 /* resample_by_2_internal.h in Headers */,
 				157B46571D8CDFDC008DC706 /* complex_fft_tables.h in Headers */,
 				157B46711D8CDFE6008DC706 /* vad_core.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15DFF4831D92E3C3007C2411 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15DFF4961D92E3C3007C2411 /* webrtcvadmac.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +343,42 @@
 			productReference = 157B45AF1D8CDD97008DC706 /* webrtcvadTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		15DFF4851D92E3C3007C2411 /* webrtcvadmac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15DFF49B1D92E3C3007C2411 /* Build configuration list for PBXNativeTarget "webrtcvadmac" */;
+			buildPhases = (
+				15DFF4811D92E3C3007C2411 /* Sources */,
+				15DFF4821D92E3C3007C2411 /* Frameworks */,
+				15DFF4831D92E3C3007C2411 /* Headers */,
+				15DFF4841D92E3C3007C2411 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = webrtcvadmac;
+			productName = webrtcvadmac;
+			productReference = 15DFF4861D92E3C3007C2411 /* webrtcvadmac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		15DFF48D1D92E3C3007C2411 /* webrtcvadmacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15DFF49C1D92E3C3007C2411 /* Build configuration list for PBXNativeTarget "webrtcvadmacTests" */;
+			buildPhases = (
+				15DFF48A1D92E3C3007C2411 /* Sources */,
+				15DFF48B1D92E3C3007C2411 /* Frameworks */,
+				15DFF48C1D92E3C3007C2411 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				15DFF4911D92E3C3007C2411 /* PBXTargetDependency */,
+			);
+			name = webrtcvadmacTests;
+			productName = webrtcvadmacTests;
+			productReference = 15DFF48E1D92E3C3007C2411 /* webrtcvadmacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -263,6 +394,16 @@
 						ProvisioningStyle = Automatic;
 					};
 					157B45AE1D8CDD97008DC706 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = BMC43J69VA;
+						ProvisioningStyle = Automatic;
+					};
+					15DFF4851D92E3C3007C2411 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = BMC43J69VA;
+						ProvisioningStyle = Automatic;
+					};
+					15DFF48D1D92E3C3007C2411 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = BMC43J69VA;
 						ProvisioningStyle = Automatic;
@@ -283,6 +424,8 @@
 			targets = (
 				157B45A51D8CDD97008DC706 /* webrtcvad */,
 				157B45AE1D8CDD97008DC706 /* webrtcvadTests */,
+				15DFF4851D92E3C3007C2411 /* webrtcvadmac */,
+				15DFF48D1D92E3C3007C2411 /* webrtcvadmacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -296,6 +439,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		157B45AD1D8CDD97008DC706 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15DFF4841D92E3C3007C2411 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15DFF48C1D92E3C3007C2411 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -320,8 +477,9 @@
 				157B465C1D8CDFDC008DC706 /* division_operations.c in Sources */,
 				157B46651D8CDFDC008DC706 /* spl_init.c in Sources */,
 				157B46761D8CDFE6008DC706 /* vad_sp.c in Sources */,
+				158024BF1DEB178000D960A6 /* AudioConvert.m in Sources */,
 				157B46641D8CDFDC008DC706 /* resample_fractional.c in Sources */,
-				157B46461D8CDEC7008DC706 /* WVad.m in Sources */,
+				157B46461D8CDEC7008DC706 /* WVVad.m in Sources */,
 				157B46591D8CDFDC008DC706 /* complex_bit_reverse.c in Sources */,
 				157B465F1D8CDFDC008DC706 /* get_scaling_square.c in Sources */,
 				157B46741D8CDFE6008DC706 /* vad_gmm.c in Sources */,
@@ -329,6 +487,7 @@
 				157B465B1D8CDFDC008DC706 /* cross_correlation.c in Sources */,
 				157B46701D8CDFE6008DC706 /* vad_core.c in Sources */,
 				157B465E1D8CDFDC008DC706 /* energy.c in Sources */,
+				158024C41DEB2D6E00D960A6 /* WVAudioSegment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +499,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		15DFF4811D92E3C3007C2411 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15DFF49D1D92ECB8007C2411 /* vad_core.c in Sources */,
+				15DFF49F1D92ECB8007C2411 /* vad_filterbank.c in Sources */,
+				15DFF4A11D92ECB8007C2411 /* vad_gmm.c in Sources */,
+				15DFF4A31D92ECB8007C2411 /* vad_sp.c in Sources */,
+				15DFF4A51D92ECB8007C2411 /* webrtc_vad.c in Sources */,
+				15DFF4A81D92ECB8007C2411 /* complex_bit_reverse.c in Sources */,
+				15DFF4A91D92ECB8007C2411 /* complex_fft.c in Sources */,
+				15DFF4AA1D92ECB8007C2411 /* cross_correlation.c in Sources */,
+				15DFF4AB1D92ECB8007C2411 /* division_operations.c in Sources */,
+				15DFF4AC1D92ECB8007C2411 /* downsample_fast.c in Sources */,
+				15DFF4AD1D92ECB8007C2411 /* energy.c in Sources */,
+				15DFF4AE1D92ECB8007C2411 /* get_scaling_square.c in Sources */,
+				15DFF4AF1D92ECB8007C2411 /* min_max_operations.c in Sources */,
+				15DFF4B01D92ECB8007C2411 /* real_fft.c in Sources */,
+				15DFF4B11D92ECB8007C2411 /* resample_48khz.c in Sources */,
+				15DFF4B21D92ECB8007C2411 /* resample_by_2_internal.c in Sources */,
+				15DFF4B31D92ECB8007C2411 /* resample_fractional.c in Sources */,
+				15DFF4B41D92ECB8007C2411 /* spl_init.c in Sources */,
+				15DFF4B51D92ECB8007C2411 /* vector_scaling_operations.c in Sources */,
+				15DFF4B71D92ECB8007C2411 /* WVVad.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15DFF48A1D92E3C3007C2411 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15DFF4941D92E3C3007C2411 /* webrtcvadmacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -347,6 +541,11 @@
 			isa = PBXTargetDependency;
 			target = 157B45A51D8CDD97008DC706 /* webrtcvad */;
 			targetProxy = 157B45B11D8CDD97008DC706 /* PBXContainerItemProxy */;
+		};
+		15DFF4911D92E3C3007C2411 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15DFF4851D92E3C3007C2411 /* webrtcvadmac */;
+			targetProxy = 15DFF4901D92E3C3007C2411 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -513,6 +712,82 @@
 			};
 			name = Release;
 		};
+		15DFF4971D92E3C3007C2411 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = BMC43J69VA;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = webrtcvadmac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tinyfool.webrtcvadmac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = webrtc;
+			};
+			name = Debug;
+		};
+		15DFF4981D92E3C3007C2411 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = BMC43J69VA;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = webrtcvadmac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tinyfool.webrtcvadmac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = webrtc;
+			};
+			name = Release;
+		};
+		15DFF4991D92E3C3007C2411 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BMC43J69VA;
+				INFOPLIST_FILE = webrtcvadmacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tinyfool.webrtcvadmacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		15DFF49A1D92E3C3007C2411 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BMC43J69VA;
+				INFOPLIST_FILE = webrtcvadmacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tinyfool.webrtcvadmacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,6 +814,24 @@
 			buildConfigurations = (
 				157B45BE1D8CDD97008DC706 /* Debug */,
 				157B45BF1D8CDD97008DC706 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15DFF49B1D92E3C3007C2411 /* Build configuration list for PBXNativeTarget "webrtcvadmac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15DFF4971D92E3C3007C2411 /* Debug */,
+				15DFF4981D92E3C3007C2411 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15DFF49C1D92E3C3007C2411 /* Build configuration list for PBXNativeTarget "webrtcvadmacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15DFF4991D92E3C3007C2411 /* Debug */,
+				15DFF49A1D92E3C3007C2411 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

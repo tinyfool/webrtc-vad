@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 typedef struct WebRtcVadInst VadInst;
 
-@interface WVad : NSObject {
+@interface WVVad : NSObject {
     
     VadInst *_vad;
 }
 -(int)isVoice:(const int16_t*)audio_frame sample_rate:(int)fs length:(int) frame_length;
-
 @end

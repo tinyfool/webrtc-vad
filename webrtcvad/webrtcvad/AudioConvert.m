@@ -1,61 +1,21 @@
 //
-//  ViewController.m
-//  vadexample
+//  AudioConvert.m
+//  webrtcvad
 //
-//  Created by Peiqiang Hao on 16/9/17.
+//  Created by Peiqiang Hao on 2016/11/27.
 //  Copyright © 2016年 Peiqiang Hao. All rights reserved.
 //
 
-#import "ViewController.h"
-@interface ViewController ()
-@end
+#import "AudioConvert.h"
 
-@implementation ViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-}
+OSStatus AudioConverterCallback(AudioConverterRef inAudioConverter,
+                                UInt32 *ioDataPacketCount,
+                                AudioBufferList *ioData,
+                                AudioStreamPacketDescription **outDataPacketDescription,
+                                void *inUserData);
 
 
-+(WVVad *)shardVad {
 
-    static WVVad *_vad = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _vad = [[WVVad alloc] init];
-    });
-    return _vad;
-}
-
-typedef struct MyAudioConverterSettings
-{
-    AudioStreamBasicDescription inputFormat; // input file's data stream description
-    AudioStreamBasicDescription outputFormat; // output file's data stream description
-    
-    AudioFileID					inputFile; // reference to your input file
-    AudioFileID					outputFile; // reference to your output file
-
-    UInt64						inputFilePacketIndex; // current packet index in input file
-    UInt64						inputFilePacketCount; // total number of packts in input file
-    UInt32						inputFilePacketMaxSize; // maximum size a packet in the input file can be
-    AudioStreamPacketDescription *inputFilePacketDescriptions;
-    void *sourceBuffer;
-    
-} MyAudioConverterSettings;
-
-
-OSStatus MyAudioConverterCallback(AudioConverterRef inAudioConverter,
-                                  UInt32 *ioDataPacketCount,
-                                  AudioBufferList *ioData,
-                                  AudioStreamPacketDescription **outDataPacketDescription,
-                                  void *inUserData);
-void Convert(MyAudioConverterSettings *mySettings);
-
-
-#pragma mark - utility functions -
-
-// generic error handler - if result is nonzero, prints error message and exits program.
 static void CheckResult(OSStatus result, const char *operation)
 {
     if (result == noErr) return;
@@ -75,16 +35,13 @@ static void CheckResult(OSStatus result, const char *operation)
     exit(1);
 }
 
-
-#pragma mark - audio converter -
-
-OSStatus MyAudioConverterCallback(AudioConverterRef inAudioConverter,
+OSStatus AudioConverterCallback(AudioConverterRef inAudioConverter,
                                   UInt32 *ioDataPacketCount,
                                   AudioBufferList *ioData,
                                   AudioStreamPacketDescription **outDataPacketDescription,
                                   void *inUserData)
 {
-    MyAudioConverterSettings *audioConverterSettings = (MyAudioConverterSettings *)inUserData;
+    AudioConverterSettings *audioConverterSettings = (AudioConverterSettings *)inUserData;
     
     // initialize in case of failure
     ioData->mBuffers[0].mData = NULL;
@@ -145,7 +102,7 @@ OSStatus MyAudioConverterCallback(AudioConverterRef inAudioConverter,
     return result;
 }
 
-void Convert(MyAudioConverterSettings *mySettings)
+void Convert(AudioConverterSettings *mySettings,DealAudioFrameProc dealAudioFrame)
 {
     // create audioConverter object
     AudioConverterRef	audioConverter;
@@ -178,17 +135,17 @@ void Convert(MyAudioConverterSettings *mySettings)
     UInt8 *outputBuffer = (UInt8 *)malloc(sizeof(UInt8) * outputBufferSize); // CHRIS: not sizeof(UInt8*). check book text!
     
     UInt32 outputFilePacketPosition = 0; //in bytes
-
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"debug.text"];
-    NSString *path2 = [documentsDirectory stringByAppendingPathComponent:@"debug2.text"];
-
-    NSOutputStream* debugFile = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-    [debugFile open];
     
-    NSOutputStream* debugFile2 = [NSOutputStream outputStreamToFileAtPath:path2 append:NO];
-    [debugFile2 open];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"debug.text"];
+//    NSString *path2 = [documentsDirectory stringByAppendingPathComponent:@"debug2.text"];
+    
+//    NSOutputStream* debugFile = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+//    [debugFile open];
+//    
+//    NSOutputStream* debugFile2 = [NSOutputStream outputStreamToFileAtPath:path2 append:NO];
+//    [debugFile2 open];
     
     while(1)
     {
@@ -203,7 +160,7 @@ void Convert(MyAudioConverterSettings *mySettings)
         // the callback function as many times as required to fulfill the request.
         UInt32 ioOutputDataPackets = packetsPerBuffer;
         OSStatus error = AudioConverterFillComplexBuffer(audioConverter,
-                                                         MyAudioConverterCallback,
+                                                         AudioConverterCallback,
                                                          mySettings,
                                                          &ioOutputDataPackets,
                                                          &convertedData,
@@ -224,67 +181,19 @@ void Convert(MyAudioConverterSettings *mySettings)
                                            &ioOutputDataPackets,
                                            convertedData.mBuffers[0].mData),
                      "Couldn't write packets to file");
-
-//        putInVoiceBuffer(convertedData.mBuffers[0].mData, convertedData.mBuffers[0].mDataByteSize);
-        [debugFile write:convertedData.mBuffers[0].mData maxLength:convertedData.mBuffers[0].mDataByteSize];
+        
+        dealAudioFrame(convertedData.mBuffers[0].mData, convertedData.mBuffers[0].mDataByteSize);
+//        putInVoiceBuffer(convertedData.mBuffers[0].mData, convertedData.mBuffers[0].mDataByteSize,debugFile2);
+        
+//        [debugFile write:convertedData.mBuffers[0].mData maxLength:convertedData.mBuffers[0].mDataByteSize];
         // advance the output file write location
         outputFilePacketPosition += (ioOutputDataPackets * mySettings->outputFormat.mBytesPerPacket);
     }
-    [debugFile close];
-    [debugFile2 close];
+//    [debugFile close];
+//    [debugFile2 close];
     AudioConverterDispose(audioConverter);
     free (outputBuffer);
 }
 
-- (IBAction)readaudio:(id)sender {
-
-    
-    
-    MyAudioConverterSettings audioConverterSettings = {0};
-    
-    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
-    CheckResult (AudioFileOpenURL((__bridge CFURLRef _Nonnull)(fileUrl), kAudioFileReadPermission , 0, &audioConverterSettings.inputFile),
-                 "AudioFileOpenURL failed");
-    UInt32 propSize = sizeof(audioConverterSettings.inputFormat);
-    CheckResult (AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyDataFormat, &propSize, &audioConverterSettings.inputFormat),
-                 "couldn't get file's data format");
-    
-    // get the total number of packets in the file
-    propSize = sizeof(audioConverterSettings.inputFilePacketCount);
-    CheckResult (AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyAudioDataPacketCount, &propSize, &audioConverterSettings.inputFilePacketCount),
-                 "couldn't get file's packet count");
-    
-    // get size of the largest possible packet
-    propSize = sizeof(audioConverterSettings.inputFilePacketMaxSize);
-    CheckResult(AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyMaximumPacketSize, &propSize, &audioConverterSettings.inputFilePacketMaxSize),
-                "couldn't get file's max packet size");
-    
-    audioConverterSettings.outputFormat.mSampleRate = 16000.0;
-    audioConverterSettings.outputFormat.mFormatID = kAudioFormatLinearPCM;
-    audioConverterSettings.outputFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-    audioConverterSettings.outputFormat.mChannelsPerFrame = 1;
-    audioConverterSettings.outputFormat.mBytesPerPacket = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
-    audioConverterSettings.outputFormat.mFramesPerPacket = 1;
-    audioConverterSettings.outputFormat.mBytesPerFrame = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
-    audioConverterSettings.outputFormat.mBitsPerChannel = 16;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"output.caf"];
-    NSLog(@"%@",path);
-    NSURL *outfileURL = [NSURL URLWithString:path];
-    CheckResult (AudioFileCreateWithURL((__bridge CFURLRef _Nonnull)(outfileURL), kAudioFileCAFType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
-                 "AudioFileCreateWithURL failed");
-
-    Convert(&audioConverterSettings);
-    AudioFileClose(audioConverterSettings.inputFile);
-    AudioFileClose(audioConverterSettings.outputFile);
-}
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-}
 
 
-@end

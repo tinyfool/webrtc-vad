@@ -6,10 +6,10 @@
 //  Copyright © 2016年 Peiqiang Hao. All rights reserved.
 //
 
-#import "WVad.h"
+#import "WVVad.h"
 #include "webrtc/common_audio/vad/include/webrtc_vad.h"
 
-@implementation WVad
+@implementation WVVad
 
 -(id)init {
     
