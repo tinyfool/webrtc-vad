@@ -61,7 +61,15 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
 
 
 - (NSArray*)segmentAudio:(NSURL *) fileUrl {
-        
+    
+    NSString* PcmFileName = [self cover2PCM16000fromSrcFile:fileUrl];
+    
+    
+    return nil;
+}
+
+- (NSString*) cover2PCM16000fromSrcFile: (NSURL*) fileUrl {
+    
     AudioConverterSettings audioConverterSettings = {0};
     
     CheckResult (AudioFileOpenURL((__bridge CFURLRef _Nonnull)(fileUrl), kAudioFileReadPermission , 0, &audioConverterSettings.inputFile),
@@ -89,18 +97,39 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
     audioConverterSettings.outputFormat.mBytesPerFrame = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
     audioConverterSettings.outputFormat.mBitsPerChannel = 16;
     
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"output.caf"];
-//    NSLog(@"%@",path);
-//    NSURL *outfileURL = [NSURL URLWithString:path];
-//    CheckResult (AudioFileCreateWithURL((__bridge CFURLRef _Nonnull)(outfileURL), kAudioFileCAFType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
-//                 "AudioFileCreateWithURL failed");
+    NSString *path = [self pathForTemporaryFileWithPrefix:@"PCM16000" andExt:@"caf"];
+    NSLog(@"%@",path);
+    NSURL *outfileURL = [NSURL URLWithString:path];
+    CheckResult (AudioFileCreateWithURL((__bridge CFURLRef _Nonnull)(outfileURL), kAudioFileCAFType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
+                 "AudioFileCreateWithURL failed");
     
-    Convert(&audioConverterSettings,putInVoiceBuffer);
+    Convert(&audioConverterSettings);
     AudioFileClose(audioConverterSettings.inputFile);
-//    AudioFileClose(audioConverterSettings.outputFile);
-    return nil;
+    AudioFileClose(audioConverterSettings.outputFile);
+    return path;
 }
+
+- (NSString *)pathForTemporaryFileWithPrefix:(NSString *)prefix andExt:(NSString*)ExtName
+{
+    NSString *  result;
+    CFUUIDRef   uuid;
+    CFStringRef uuidStr;
+    
+    uuid = CFUUIDCreate(NULL);
+    assert(uuid != NULL);
+    
+    uuidStr = CFUUIDCreateString(NULL, uuid);
+    assert(uuidStr != NULL);
+    
+    result = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.%@", prefix, uuidStr,ExtName]];
+    assert(result != nil);
+    
+    CFRelease(uuidStr);
+    CFRelease(uuid);
+    
+    return result;
+}
+
+
 
 @end

@@ -28,7 +28,7 @@ typedef struct AudioConverterSettings
 
 typedef void (*DealAudioFrameProc)(void *frame,UInt32 frameSize);
 
-static void CheckResult(OSStatus result, const char *operation);
+void CheckResult(OSStatus result, const char *operation);
 
-void Convert(AudioConverterSettings *mySettings,DealAudioFrameProc dealAudioFrame);
+void Convert(AudioConverterSettings *mySettings);
 

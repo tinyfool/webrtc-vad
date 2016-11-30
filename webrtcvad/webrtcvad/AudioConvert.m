@@ -16,7 +16,7 @@ OSStatus AudioConverterCallback(AudioConverterRef inAudioConverter,
 
 
 
-static void CheckResult(OSStatus result, const char *operation)
+void CheckResult(OSStatus result, const char *operation)
 {
     if (result == noErr) return;
     
@@ -102,7 +102,7 @@ OSStatus AudioConverterCallback(AudioConverterRef inAudioConverter,
     return result;
 }
 
-void Convert(AudioConverterSettings *mySettings,DealAudioFrameProc dealAudioFrame)
+void Convert(AudioConverterSettings *mySettings)
 {
     // create audioConverter object
     AudioConverterRef	audioConverter;
@@ -135,17 +135,6 @@ void Convert(AudioConverterSettings *mySettings,DealAudioFrameProc dealAudioFram
     UInt8 *outputBuffer = (UInt8 *)malloc(sizeof(UInt8) * outputBufferSize); // CHRIS: not sizeof(UInt8*). check book text!
     
     UInt32 outputFilePacketPosition = 0; //in bytes
-    
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"debug.text"];
-//    NSString *path2 = [documentsDirectory stringByAppendingPathComponent:@"debug2.text"];
-    
-//    NSOutputStream* debugFile = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-//    [debugFile open];
-//    
-//    NSOutputStream* debugFile2 = [NSOutputStream outputStreamToFileAtPath:path2 append:NO];
-//    [debugFile2 open];
     
     while(1)
     {
@@ -182,18 +171,10 @@ void Convert(AudioConverterSettings *mySettings,DealAudioFrameProc dealAudioFram
                                            convertedData.mBuffers[0].mData),
                      "Couldn't write packets to file");
         
-        dealAudioFrame(convertedData.mBuffers[0].mData, convertedData.mBuffers[0].mDataByteSize);
-//        putInVoiceBuffer(convertedData.mBuffers[0].mData, convertedData.mBuffers[0].mDataByteSize,debugFile2);
-        
-//        [debugFile write:convertedData.mBuffers[0].mData maxLength:convertedData.mBuffers[0].mDataByteSize];
         // advance the output file write location
         outputFilePacketPosition += (ioOutputDataPackets * mySettings->outputFormat.mBytesPerPacket);
     }
-//    [debugFile close];
-//    [debugFile2 close];
     AudioConverterDispose(audioConverter);
     free (outputBuffer);
 }
-
-
 

@@ -145,7 +145,7 @@ OSStatus MyAudioConverterCallback(AudioConverterRef inAudioConverter,
     return result;
 }
 
-void Convert(MyAudioConverterSettings *mySettings)
+void Convert_old(MyAudioConverterSettings *mySettings)
 {
     // create audioConverter object
     AudioConverterRef	audioConverter;
@@ -236,9 +236,15 @@ void Convert(MyAudioConverterSettings *mySettings)
     free (outputBuffer);
 }
 
-- (IBAction)readaudio:(id)sender {
 
+- (IBAction)readaudio:(id)sender {
     
+    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
+    WVAudioSegment* audioSegment = [[WVAudioSegment alloc] init];
+    [audioSegment segmentAudio:fileUrl];
+}
+
+- (IBAction)readaudio1:(id)sender {
     
     MyAudioConverterSettings audioConverterSettings = {0};
     
