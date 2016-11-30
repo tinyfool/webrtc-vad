@@ -11,6 +11,6 @@
 
 @interface WVAudioSegment : NSObject
 
-- (NSArray*)segmentAudio:(NSURL *) fileUrl;
+- (NSArray*)segmentAudio:(NSURL *) fileURL;
 
 @end

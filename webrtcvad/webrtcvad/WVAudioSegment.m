@@ -60,19 +60,43 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
 }
 
 
-- (NSArray*)segmentAudio:(NSURL *) fileUrl {
+- (NSArray*)segmentAudio:(NSURL *) fileURL {
     
-    NSString* PcmFileName = [self cover2PCM16000fromSrcFile:fileUrl];
+    NSURL* pcmFileURL = [self cover2PCM16000fromSrcFile:fileURL];
     
+    AudioFileID pcmFileID;
+    CheckResult (AudioFileOpenURL((__bridge CFURLRef _Nonnull)(pcmFileURL),
+                                  kAudioFileReadPermission ,
+                                  0,
+                                  &pcmFileID),
+                 "PcmFileOpenURL failed");
+    
+    UInt32 pos = 0;
+    UInt32 bufferSize = 320;
+    char* voiceBuffer = malloc(bufferSize);
+
+    while (1) {
+     
+        OSStatus status = AudioFileReadBytes(pcmFileID,
+                           false,
+                           pos,
+                           &bufferSize,
+                                              voiceBuffer);
+        if (status == kAudioFileEndOfFileError || bufferSize==0)
+            break;
+        
+        putInVoiceBuffer(voiceBuffer, bufferSize);
+        pos += bufferSize;
+    }
     
     return nil;
 }
 
-- (NSString*) cover2PCM16000fromSrcFile: (NSURL*) fileUrl {
+- (NSURL*)cover2PCM16000fromSrcFile:(NSURL*) fileURL {
     
     AudioConverterSettings audioConverterSettings = {0};
     
-    CheckResult (AudioFileOpenURL((__bridge CFURLRef _Nonnull)(fileUrl), kAudioFileReadPermission , 0, &audioConverterSettings.inputFile),
+    CheckResult (AudioFileOpenURL((__bridge CFURLRef _Nonnull)(fileURL), kAudioFileReadPermission , 0, &audioConverterSettings.inputFile),
                  "AudioFileOpenURL failed");
     UInt32 propSize = sizeof(audioConverterSettings.inputFormat);
     CheckResult (AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyDataFormat, &propSize, &audioConverterSettings.inputFormat),
@@ -88,14 +112,15 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
     CheckResult(AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyMaximumPacketSize, &propSize, &audioConverterSettings.inputFilePacketMaxSize),
                 "couldn't get file's max packet size");
     
-    audioConverterSettings.outputFormat.mSampleRate = 16000.0;
-    audioConverterSettings.outputFormat.mFormatID = kAudioFormatLinearPCM;
-    audioConverterSettings.outputFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-    audioConverterSettings.outputFormat.mChannelsPerFrame = 1;
-    audioConverterSettings.outputFormat.mBytesPerPacket = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
-    audioConverterSettings.outputFormat.mFramesPerPacket = 1;
-    audioConverterSettings.outputFormat.mBytesPerFrame = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
-    audioConverterSettings.outputFormat.mBitsPerChannel = 16;
+    audioConverterSettings.outputFormat = [self pcm16000Format];
+//    audioConverterSettings.outputFormat.mSampleRate = 16000.0;
+//    audioConverterSettings.outputFormat.mFormatID = kAudioFormatLinearPCM;
+//    audioConverterSettings.outputFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+//    audioConverterSettings.outputFormat.mChannelsPerFrame = 1;
+//    audioConverterSettings.outputFormat.mBytesPerPacket = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
+//    audioConverterSettings.outputFormat.mFramesPerPacket = 1;
+//    audioConverterSettings.outputFormat.mBytesPerFrame = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
+//    audioConverterSettings.outputFormat.mBitsPerChannel = 16;
     
     NSString *path = [self pathForTemporaryFileWithPrefix:@"PCM16000" andExt:@"caf"];
     NSLog(@"%@",path);
@@ -106,7 +131,7 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
     Convert(&audioConverterSettings);
     AudioFileClose(audioConverterSettings.inputFile);
     AudioFileClose(audioConverterSettings.outputFile);
-    return path;
+    return [NSURL URLWithString:path];
 }
 
 - (NSString *)pathForTemporaryFileWithPrefix:(NSString *)prefix andExt:(NSString*)ExtName
@@ -130,6 +155,19 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
     return result;
 }
 
+- (AudioStreamBasicDescription) pcm16000Format {
+
+    AudioStreamBasicDescription pcm16000Format = {0};
+    pcm16000Format.mSampleRate = 16000.0;
+    pcm16000Format.mFormatID = kAudioFormatLinearPCM;
+    pcm16000Format.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+    pcm16000Format.mChannelsPerFrame = 1;
+    pcm16000Format.mBytesPerPacket = 2 * pcm16000Format.mChannelsPerFrame;
+    pcm16000Format.mFramesPerPacket = 1;
+    pcm16000Format.mBytesPerFrame = 2 * pcm16000Format.mChannelsPerFrame;
+    pcm16000Format.mBitsPerChannel = 16;
+    return pcm16000Format;
+}
 
 
 @end
