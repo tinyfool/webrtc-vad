@@ -8,20 +8,21 @@
 
 #import "WVAudioSegment.h"
 #import "AudioConvert.h"
+#import "WVVad.h"
 
 @implementation WVAudioSegment
 
-+(WVVad *)shardVad {
+-(id)init {
     
-    static WVVad *_vad = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _vad = [[WVVad alloc] init];
-    });
-    return _vad;
+    self = [super init];
+    if(self) {
+        
+        vad = [[WVVad alloc] init];
+    }
+    return self;
 }
 
-void putInVoiceBuffer(void *frame,UInt32 frameSize) {
+-(void)putInVoiceBuffer:(void *)frame ofSize:(UInt32)frameSize {
     
     const UInt32 voiceBufsize = 320;
     static char* voiceBuffer = NULL;
@@ -47,7 +48,6 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
         framePos += size;
         if(pos >= voiceBufsize) {
             
-            WVVad* vad = [WVAudioSegment shardVad];
             int voice;
             voice = [vad isVoice:(const int16_t*)voiceBuffer sample_rate:16000 length:voiceBufsize/2];
             if(voice != 1) {
@@ -84,11 +84,9 @@ void putInVoiceBuffer(void *frame,UInt32 frameSize) {
                                               voiceBuffer);
         if (status == kAudioFileEndOfFileError || bufferSize==0)
             break;
-        
-        putInVoiceBuffer(voiceBuffer, bufferSize);
+        [self putInVoiceBuffer:voiceBuffer ofSize:bufferSize];
         pos += bufferSize;
     }
-    
     return nil;
 }
 

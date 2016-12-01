@@ -7,9 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WVVad.h"
+
+@class WVVad;
 
 @interface WVAudioSegment : NSObject
+{
+
+    WVVad* vad;
+}
 
 - (NSArray*)segmentAudio:(NSURL *) fileURL;
 
