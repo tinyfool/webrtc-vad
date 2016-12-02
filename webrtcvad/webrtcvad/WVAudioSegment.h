@@ -14,6 +14,10 @@
 {
 
     WVVad* vad;
+    
+    char* voiceBuffer;
+    UInt32 pos;
+    int n;
 }
 
 - (NSArray*)segmentAudio:(NSURL *) fileURL;

@@ -22,19 +22,27 @@
     return self;
 }
 
--(void)putInVoiceBuffer:(void *)frame ofSize:(UInt32)frameSize {
+-(void)putInVoiceBuffer:(void *)frame ofSize:(UInt32)frameSize clear:(BOOL)clear{
     
     const UInt32 voiceBufsize = 320;
     static char* voiceBuffer = NULL;
     static UInt32 pos = 0;
+    static int n = 0;
+    UInt32 framePos = 0;
+
+    if (clear) {
+        
+        voiceBuffer = NULL;
+        n = 0;
+        pos = 0;
+        return;
+    }
     
     if (voiceBuffer == NULL) {
         
         voiceBuffer = malloc(voiceBufsize);
     }
     
-    UInt32 framePos = 0;
-    static int n = 0;
     while(framePos<frameSize) {
         
         UInt32 size = frameSize-framePos;
@@ -74,6 +82,8 @@
     UInt32 bufferSize = 320;
     char* voiceBuffer = malloc(bufferSize);
 
+    [self putInVoiceBuffer:NULL ofSize:0 clear:YES];
+
     while (1) {
      
         OSStatus status = AudioFileReadBytes(pcmFileID,
@@ -83,7 +93,7 @@
                                               voiceBuffer);
         if (status == kAudioFileEndOfFileError || bufferSize==0)
             break;
-        [self putInVoiceBuffer:voiceBuffer ofSize:bufferSize];
+        [self putInVoiceBuffer:voiceBuffer ofSize:bufferSize clear:NO];
         pos += bufferSize;
     }
     AudioFileClose(pcmFileID);
