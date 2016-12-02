@@ -20,7 +20,9 @@
 
 - (IBAction)readaudio:(id)sender {
     
+    //test-16000.wav
     NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
+//    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"testbig" withExtension:@"mp3"];
     WVAudioSegment* audioSegment = [[WVAudioSegment alloc] init];
     [audioSegment segmentAudio:fileUrl];
 }

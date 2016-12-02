@@ -40,6 +40,20 @@
 			remoteGlobalIDString = 157B45C81D8CDDB5008DC706;
 			remoteInfo = vadexample;
 		};
+		15CF18C21DF168800054BA65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15F921171D912048007B94E7 /* webrtcvad.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15DFF4861D92E3C3007C2411;
+			remoteInfo = webrtcvadmac;
+		};
+		15CF18C41DF168800054BA65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15F921171D912048007B94E7 /* webrtcvad.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 15DFF48E1D92E3C3007C2411;
+			remoteInfo = webrtcvadmacTests;
+		};
 		15F9211C1D912048007B94E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 15F921171D912048007B94E7 /* webrtcvad.xcodeproj */;
@@ -193,6 +207,8 @@
 			children = (
 				15F9211D1D912048007B94E7 /* webrtcvad.framework */,
 				15F9211F1D912048007B94E7 /* webrtcvadTests.xctest */,
+				15CF18C31DF168800054BA65 /* webrtcvadmac.framework */,
+				15CF18C51DF168800054BA65 /* webrtcvadmacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,6 +324,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		15CF18C31DF168800054BA65 /* webrtcvadmac.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = webrtcvadmac.framework;
+			remoteRef = 15CF18C21DF168800054BA65 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15CF18C51DF168800054BA65 /* webrtcvadmacTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = webrtcvadmacTests.xctest;
+			remoteRef = 15CF18C41DF168800054BA65 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		15F9211D1D912048007B94E7 /* webrtcvad.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

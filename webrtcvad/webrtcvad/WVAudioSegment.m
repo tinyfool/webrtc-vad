@@ -10,6 +10,11 @@
 #import "AudioConvert.h"
 #import "WVVad.h"
 
+@implementation VoiceSegment
+@synthesize isVoice;
+@synthesize timestamp;
+@end
+
 @implementation WVAudioSegment
 
 -(id)init {
@@ -22,7 +27,7 @@
     return self;
 }
 
--(void)putInVoiceBuffer:(void *)frame ofSize:(UInt32)frameSize clear:(BOOL)clear{
+-(void)putInVoiceBuffer:(void *)frame ofSize:(UInt32)frameSize voiceArray:(NSMutableArray*)voiceArray clear:(BOOL)clear {
     
     const UInt32 voiceBufsize = 320;
     static char* voiceBuffer = NULL;
@@ -58,14 +63,85 @@
             
             int voice;
             voice = [vad isVoice:(const int16_t*)voiceBuffer sample_rate:16000 length:voiceBufsize/2];
-            if(voice != 1) {
-                NSLog(@"== %2e s",n*10/1000.0);
-            }
+            [voiceArray addObject:[NSNumber numberWithInt:voice]];
             pos = 0;
             n++;
         }
     }
 }
+
+- (NSArray*)voiceArray2SegmentArray:(NSArray*) voiceArray {
+
+    int frameSize = 10;
+    int frames[frameSize];
+    int framePos = 0;
+    BOOL triggered = NO;
+    
+    NSMutableArray* segmentArray = [NSMutableArray arrayWithCapacity:20];
+    int n = 0;
+    for (NSNumber* isVoice in voiceArray) {
+        
+        frames[framePos] = [isVoice intValue];
+        framePos++;
+//        NSLog(@"%@",isVoice);
+//        NSLog(@"%d",framePos);
+        if( framePos == frameSize) {
+        
+            framePos = 0;
+            if(triggered) {
+            
+                if ([self isNoneVoiceFrame:frames withFrameSize:frameSize]) {
+                    
+                    triggered = NO;
+                    VoiceSegment* segment = [[VoiceSegment alloc] init];
+                    segment.isVoice = 0;
+                    segment.timestamp = (n-frameSize+1)*10.0/1000.0;
+                    [segmentArray addObject:segment];
+                }
+            }else {
+            
+                if ([self isVoiceFrame:frames withFrameSize:frameSize]) {
+                    
+                    triggered = YES;
+                    VoiceSegment* segment = [[VoiceSegment alloc] init];
+                    segment.isVoice = 1;
+                    segment.timestamp = (n-frameSize+1)*10.0/1000.0;
+                    [segmentArray addObject:segment];
+                }
+
+            }
+        }
+        n++;
+    }
+    return segmentArray;
+}
+
+- (BOOL) isVoiceFrame:(int*)frame withFrameSize:(int)size {
+
+    int voiceNum = 0;
+    for (int i = 0; i< size;i++) {
+        
+        if (frame[i] == 1)
+            voiceNum++;
+    }
+    if (voiceNum>size*0.9)
+        return YES;
+    return NO;
+}
+
+- (BOOL) isNoneVoiceFrame:(int*)frame withFrameSize:(int)size {
+    
+    int noneVoiceNum = 0;
+    for (int i = 0; i< size;i++) {
+        
+        if (frame[i] == 0)
+            noneVoiceNum++;
+    }
+    if (noneVoiceNum>size*0.9)
+        return YES;
+    return NO;
+}
+
 
 - (NSArray*)segmentAudio:(NSURL *) fileURL {
     
@@ -82,7 +158,8 @@
     UInt32 bufferSize = 320;
     char* voiceBuffer = malloc(bufferSize);
 
-    [self putInVoiceBuffer:NULL ofSize:0 clear:YES];
+    NSMutableArray* voiceArray = [NSMutableArray arrayWithCapacity:1000];
+    [self putInVoiceBuffer:NULL ofSize:0 voiceArray:NULL clear:YES];
 
     while (1) {
      
@@ -93,21 +170,60 @@
                                               voiceBuffer);
         if (status == kAudioFileEndOfFileError || bufferSize==0)
             break;
-        [self putInVoiceBuffer:voiceBuffer ofSize:bufferSize clear:NO];
+        
+        [self putInVoiceBuffer:voiceBuffer ofSize:bufferSize voiceArray:voiceArray clear:NO];
+        
         pos += bufferSize;
     }
     AudioFileClose(pcmFileID);
+
     NSFileManager *manager = [NSFileManager defaultManager];
     NSError* error;
     [manager removeItemAtURL:pcmFileURL error:&error];
     if (error) {
-        
         NSLog(@"%@",[error localizedDescription]);
     }
-    return nil;
+    
+    NSArray* result = [self voiceArray2SegmentArray:voiceArray];
+    NSLog(@"%@",result);
+    return result;
 }
 
 - (NSURL*)cover2PCM16000fromSrcFile:(NSURL*) fileURL {
+    
+    AudioConverterSettings audioConverterSettings = {0};
+    
+    CheckResult (AudioFileOpenURL((__bridge CFURLRef _Nonnull)(fileURL), kAudioFileReadPermission , 0, &audioConverterSettings.inputFile),
+                 "AudioFileOpenURL failed");
+    UInt32 propSize = sizeof(audioConverterSettings.inputFormat);
+    CheckResult (AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyDataFormat, &propSize, &audioConverterSettings.inputFormat),
+                 "couldn't get file's data format");
+    
+    // get the total number of packets in the file
+    propSize = sizeof(audioConverterSettings.inputFilePacketCount);
+    CheckResult (AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyAudioDataPacketCount, &propSize, &audioConverterSettings.inputFilePacketCount),
+                 "couldn't get file's packet count");
+    
+    // get size of the largest possible packet
+    propSize = sizeof(audioConverterSettings.inputFilePacketMaxSize);
+    CheckResult(AudioFileGetProperty(audioConverterSettings.inputFile, kAudioFilePropertyMaximumPacketSize, &propSize, &audioConverterSettings.inputFilePacketMaxSize),
+                "couldn't get file's max packet size");
+    
+    audioConverterSettings.outputFormat = [self pcm16000Format];
+    
+    NSString *path = [self pathForTemporaryFileWithPrefix:@"PCM16000" andExt:@"caf"];
+    NSLog(@"%@",path);
+    NSURL *outfileURL = [NSURL URLWithString:path];
+    CheckResult (AudioFileCreateWithURL((__bridge CFURLRef _Nonnull)(outfileURL), kAudioFileCAFType, &audioConverterSettings.outputFormat, kAudioFileFlags_EraseFile, &audioConverterSettings.outputFile),
+                 "AudioFileCreateWithURL failed");
+    
+    Convert(&audioConverterSettings);
+    AudioFileClose(audioConverterSettings.inputFile);
+    AudioFileClose(audioConverterSettings.outputFile);
+    return [NSURL fileURLWithPath:path];
+}
+
+- (BOOL)isFitOurFormat:(NSURL*) fileURL {
     
     AudioConverterSettings audioConverterSettings = {0};
     

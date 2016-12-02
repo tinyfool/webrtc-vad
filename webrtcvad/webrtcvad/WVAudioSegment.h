@@ -14,12 +14,14 @@
 {
 
     WVVad* vad;
-    
-    char* voiceBuffer;
-    UInt32 pos;
-    int n;
 }
-
 - (NSArray*)segmentAudio:(NSURL *) fileURL;
-
+@end
+@interface VoiceSegment : NSObject
+{
+    int isVoice;
+    double timestamp;
+}
+@property (nonatomic) int isVoice;
+@property (nonatomic) double timestamp;
 @end
