@@ -59,7 +59,6 @@
     }
 }
 
-
 - (NSArray*)segmentAudio:(NSURL *) fileURL {
     
     NSURL* pcmFileURL = [self cover2PCM16000fromSrcFile:fileURL];
@@ -91,6 +90,10 @@
     NSFileManager *manager = [NSFileManager defaultManager];
     NSError* error;
     [manager removeItemAtURL:pcmFileURL error:&error];
+    if (error) {
+        
+        NSLog(@"%@",[error localizedDescription]);
+    }
     return nil;
 }
 
@@ -125,7 +128,7 @@
     Convert(&audioConverterSettings);
     AudioFileClose(audioConverterSettings.inputFile);
     AudioFileClose(audioConverterSettings.outputFile);
-    return [NSURL URLWithString:path];
+    return [NSURL fileURLWithPath:path];
 }
 
 - (NSString *)pathForTemporaryFileWithPrefix:(NSString *)prefix andExt:(NSString*)ExtName
