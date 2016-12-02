@@ -87,6 +87,10 @@
         [self putInVoiceBuffer:voiceBuffer ofSize:bufferSize];
         pos += bufferSize;
     }
+    AudioFileClose(pcmFileID);
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSError* error;
+    [manager removeItemAtURL:pcmFileURL error:&error];
     return nil;
 }
 
@@ -111,14 +115,6 @@
                 "couldn't get file's max packet size");
     
     audioConverterSettings.outputFormat = [self pcm16000Format];
-//    audioConverterSettings.outputFormat.mSampleRate = 16000.0;
-//    audioConverterSettings.outputFormat.mFormatID = kAudioFormatLinearPCM;
-//    audioConverterSettings.outputFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-//    audioConverterSettings.outputFormat.mChannelsPerFrame = 1;
-//    audioConverterSettings.outputFormat.mBytesPerPacket = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
-//    audioConverterSettings.outputFormat.mFramesPerPacket = 1;
-//    audioConverterSettings.outputFormat.mBytesPerFrame = 2*audioConverterSettings.outputFormat.mChannelsPerFrame;
-//    audioConverterSettings.outputFormat.mBitsPerChannel = 16;
     
     NSString *path = [self pathForTemporaryFileWithPrefix:@"PCM16000" andExt:@"caf"];
     NSLog(@"%@",path);
