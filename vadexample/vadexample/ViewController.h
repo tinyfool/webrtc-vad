@@ -10,7 +10,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <webrtcvad/webrtcvad.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
 }
 @end

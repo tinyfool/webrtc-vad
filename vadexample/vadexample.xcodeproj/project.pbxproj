@@ -21,6 +21,7 @@
 		157B45DC1D8CDDB5008DC706 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 157B45DA1D8CDDB5008DC706 /* LaunchScreen.storyboard */; };
 		157B45E71D8CDDB5008DC706 /* vadexampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B45E61D8CDDB5008DC706 /* vadexampleTests.m */; };
 		157B45F21D8CDDB6008DC706 /* vadexampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B45F11D8CDDB6008DC706 /* vadexampleUITests.m */; };
+		15B65AEC1DF1CF610073537D /* VoiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B65AEB1DF1CF610073537D /* VoiceTableViewCell.m */; };
 		15DFF47D1D923617007C2411 /* 44100.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15DFF47C1D923617007C2411 /* 44100.mp3 */; };
 		15F921201D91205E007B94E7 /* webrtcvad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F9211D1D912048007B94E7 /* webrtcvad.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,8 @@
 		157B45ED1D8CDDB6008DC706 /* vadexampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vadexampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		157B45F11D8CDDB6008DC706 /* vadexampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vadexampleUITests.m; sourceTree = "<group>"; };
 		157B45F31D8CDDB6008DC706 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15B65AEA1DF1CF610073537D /* VoiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceTableViewCell.h; sourceTree = "<group>"; };
+		15B65AEB1DF1CF610073537D /* VoiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceTableViewCell.m; sourceTree = "<group>"; };
 		15DFF47C1D923617007C2411 /* 44100.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 44100.mp3; sourceTree = "<group>"; };
 		15F921171D912048007B94E7 /* webrtcvad.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtcvad.xcodeproj; path = ../webrtcvad/webrtcvad.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +170,8 @@
 				157B45D01D8CDDB5008DC706 /* AppDelegate.m */,
 				157B45D21D8CDDB5008DC706 /* ViewController.h */,
 				157B45D31D8CDDB5008DC706 /* ViewController.m */,
+				15B65AEA1DF1CF610073537D /* VoiceTableViewCell.h */,
+				15B65AEB1DF1CF610073537D /* VoiceTableViewCell.m */,
 				157B45D51D8CDDB5008DC706 /* Main.storyboard */,
 				157B45D81D8CDDB5008DC706 /* Assets.xcassets */,
 				157B45DA1D8CDDB5008DC706 /* LaunchScreen.storyboard */,
@@ -392,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15B65AEC1DF1CF610073537D /* VoiceTableViewCell.m in Sources */,
 				157B45D41D8CDDB5008DC706 /* ViewController.m in Sources */,
 				157B45D11D8CDDB5008DC706 /* AppDelegate.m in Sources */,
 				157B45CE1D8CDDB5008DC706 /* main.m in Sources */,

@@ -20,8 +20,10 @@
 @interface VoiceSegment : NSObject
 {
     int isVoice;
-    double timestamp;
+    NSTimeInterval timestamp;
+    NSTimeInterval duration;
 }
 @property (nonatomic) int isVoice;
-@property (nonatomic) double timestamp;
+@property (nonatomic) NSTimeInterval timestamp;
+@property (nonatomic) NSTimeInterval duration;
 @end

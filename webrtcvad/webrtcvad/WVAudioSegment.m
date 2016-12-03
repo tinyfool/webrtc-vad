@@ -11,8 +11,11 @@
 #import "WVVad.h"
 
 @implementation VoiceSegment
+
 @synthesize isVoice;
 @synthesize timestamp;
+@synthesize duration;
+
 @end
 
 @implementation WVAudioSegment
@@ -96,6 +99,11 @@
                     VoiceSegment* segment = [[VoiceSegment alloc] init];
                     segment.isVoice = 0;
                     segment.timestamp = (n-frameSize+1)*10.0/1000.0;
+                    if (segmentArray.count>0) {
+                        
+                        VoiceSegment* lastSegment = segmentArray.lastObject;
+                        lastSegment.duration = segment.timestamp - lastSegment.timestamp;
+                    }
                     [segmentArray addObject:segment];
                 }
             }else {
@@ -106,6 +114,11 @@
                     VoiceSegment* segment = [[VoiceSegment alloc] init];
                     segment.isVoice = 1;
                     segment.timestamp = (n-frameSize+1)*10.0/1000.0;
+                    if (segmentArray.count>0) {
+                        
+                        VoiceSegment* lastSegment = segmentArray.lastObject;
+                        lastSegment.duration = segment.timestamp - lastSegment.timestamp;
+                    }
                     [segmentArray addObject:segment];
                 }
 
@@ -113,6 +126,14 @@
         }
         n++;
     }
+    
+    if (segmentArray.count>0) {
+        
+        double timestamp = (n-frameSize+1)*10.0/1000.0;
+        VoiceSegment* lastSegment = segmentArray.lastObject;
+        lastSegment.duration = timestamp - lastSegment.timestamp;
+    }
+
     return segmentArray;
 }
 
@@ -185,7 +206,6 @@
     }
     
     NSArray* result = [self voiceArray2SegmentArray:voiceArray];
-    NSLog(@"%@",result);
     return result;
 }
 
