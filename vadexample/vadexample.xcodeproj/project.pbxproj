@@ -22,6 +22,7 @@
 		157B45E71D8CDDB5008DC706 /* vadexampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B45E61D8CDDB5008DC706 /* vadexampleTests.m */; };
 		157B45F21D8CDDB6008DC706 /* vadexampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B45F11D8CDDB6008DC706 /* vadexampleUITests.m */; };
 		15B65B811DF3AC2B0073537D /* CellMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B65B801DF3AC2B0073537D /* CellMaker.swift */; };
+		15B65B8E1DF3E3500073537D /* lisp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15B65B8D1DF3E3500073537D /* lisp.mp3 */; };
 		15DFF47D1D923617007C2411 /* 44100.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15DFF47C1D923617007C2411 /* 44100.mp3 */; };
 		15F921201D91205E007B94E7 /* webrtcvad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F9211D1D912048007B94E7 /* webrtcvad.framework */; };
 /* End PBXBuildFile section */
@@ -96,6 +97,7 @@
 		157B45F31D8CDDB6008DC706 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15B65B7F1DF3AC2B0073537D /* vadexample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vadexample-Bridging-Header.h"; sourceTree = "<group>"; };
 		15B65B801DF3AC2B0073537D /* CellMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellMaker.swift; sourceTree = "<group>"; };
+		15B65B8D1DF3E3500073537D /* lisp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = lisp.mp3; path = ../../../lisp.mp3; sourceTree = "<group>"; };
 		15DFF47C1D923617007C2411 /* 44100.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 44100.mp3; sourceTree = "<group>"; };
 		15F921171D912048007B94E7 /* webrtcvad.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = webrtcvad.xcodeproj; path = ../webrtcvad/webrtcvad.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +162,7 @@
 		157B45CB1D8CDDB5008DC706 /* vadexample */ = {
 			isa = PBXGroup;
 			children = (
+				15B65B8D1DF3E3500073537D /* lisp.mp3 */,
 				15DFF47C1D923617007C2411 /* 44100.mp3 */,
 				156A12E31D8D7BFA009DA94B /* t.mp3 */,
 				156A12E11D8D6554009DA94B /* test.aiff */,
@@ -371,6 +374,7 @@
 				156A12E01D8D63ED009DA94B /* test-16000.wav in Resources */,
 				157B45D91D8CDDB5008DC706 /* Assets.xcassets in Resources */,
 				156A12DE1D8CFADC009DA94B /* p.mp3 in Resources */,
+				15B65B8E1DF3E3500073537D /* lisp.mp3 in Resources */,
 				156A12E21D8D6554009DA94B /* test.aiff in Resources */,
 				157B45D71D8CDDB5008DC706 /* Main.storyboard in Resources */,
 				156A12E41D8D7BFA009DA94B /* t.mp3 in Resources */,

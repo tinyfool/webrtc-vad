@@ -17,6 +17,7 @@
     NSArray* data;
     __weak IBOutlet UITableView *voiceTableView;
     AVAudioPlayer* player;
+    NSTimer* timer;
 }
 @end
 
@@ -62,7 +63,7 @@
 - (IBAction)readaudio:(id)sender {
     
     //test-16000.wav
-    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
+    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"lisp" withExtension:@"mp3"];
 //    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"testbig" withExtension:@"mp3"];
     
     NSError* error;
@@ -88,8 +89,17 @@
     NSTimeInterval shortStartDelay = 0.01;
     NSTimeInterval now = player.deviceCurrentTime;
     
-    [player playAtTime:now + shortStartDelay];
-    [NSTimer scheduledTimerWithTimeInterval:shortStartDelay + duration
+//    [player playAtTime:now + shortStartDelay];
+    
+    player.currentTime = time + shortStartDelay;
+    [player play];
+    
+    if(timer) {
+    
+        [timer invalidate];
+        timer = nil;
+    }
+    timer = [NSTimer scheduledTimerWithTimeInterval:shortStartDelay + duration
                                                       target:self
                                                     selector:@selector(stopPlaying:)
                                                     userInfo:nil
@@ -98,6 +108,7 @@
 
 - (void)stopPlaying:(NSTimer *)theTimer {
     [player pause];
+    NSLog(@"stopPlaying");
 }
 
 - (void)didReceiveMemoryWarning {
