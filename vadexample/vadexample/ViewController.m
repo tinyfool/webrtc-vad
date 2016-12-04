@@ -85,8 +85,9 @@
     [self playAtTime:segment.timestamp withDuration:segment.duration];
     
     if(!recognizer) {
-        recognizer = [[SFSpeechRecognizer alloc]
-                      initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+        
+        //recognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+        recognizer = [[SFSpeechRecognizer alloc] init];
     }
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         switch (status) {
