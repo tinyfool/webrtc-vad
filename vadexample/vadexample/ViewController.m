@@ -8,12 +8,15 @@
 
 #import "ViewController.h"
 #import "vadexample-Swift.h"
+#import <AVFoundation/AVFoundation.h>
+#import <webrtcvad/webrtcvad.h>
 
 
 @interface ViewController () {
 
     NSArray* data;
     __weak IBOutlet UITableView *voiceTableView;
+    AVAudioPlayer* player;
 }
 @end
 
@@ -33,6 +36,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     VoiceSegment* segment = (VoiceSegment*)[data objectAtIndex:indexPath.row];
+    
     UITableViewCell* cell;
     CellMaker* maker = [[CellMaker alloc] init];
     
@@ -60,9 +64,40 @@
     //test-16000.wav
     NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
 //    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"testbig" withExtension:@"mp3"];
+    
+    NSError* error;
+    player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileUrl error:&error];
+    if (player) {
+    
+        [player prepareToPlay];
+    }
     WVAudioSegment* audioSegment = [[WVAudioSegment alloc] init];
     data = [audioSegment segmentAudio:fileUrl];
     [voiceTableView reloadData];
+}
+
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    VoiceSegment* segment = (VoiceSegment*)[data objectAtIndex:indexPath.row];
+    [self playAtTime:segment.timestamp withDuration:segment.duration];
+    return NULL;
+}
+
+- (void)playAtTime:(NSTimeInterval)time withDuration:(NSTimeInterval)duration {
+    
+    NSTimeInterval shortStartDelay = 0.01;
+    NSTimeInterval now = player.deviceCurrentTime;
+    
+    [player playAtTime:now + shortStartDelay];
+    [NSTimer scheduledTimerWithTimeInterval:shortStartDelay + duration
+                                                      target:self
+                                                    selector:@selector(stopPlaying:)
+                                                    userInfo:nil
+                                                     repeats:NO];
+}
+
+- (void)stopPlaying:(NSTimer *)theTimer {
+    [player pause];
 }
 
 - (void)didReceiveMemoryWarning {
