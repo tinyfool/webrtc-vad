@@ -33,15 +33,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     VoiceSegment* segment = (VoiceSegment*)[data objectAtIndex:indexPath.row];
+    UITableViewCell* cell;
     CellMaker* maker = [[CellMaker alloc] init];
-    UITableViewCell* cell = [maker makeLineCell:tableView];
-    CGFloat width = segment.duration*20;
-    if (width > tableView.bounds.size.width - 10) {
     
-        width = tableView.bounds.size.width - 10;
+    if (segment.isVoice) {
+    
+        cell = [maker makeLineCell:tableView];
+        CGFloat width = segment.duration*20;
+        if (width > tableView.bounds.size.width - 10) {
+            
+            width = tableView.bounds.size.width - 10;
+        }
+        NSString* title = [NSString stringWithFormat:@"始于 %.2fs，长 %.2fs",segment.timestamp,segment.duration];
+        [maker LineCellWithCell:cell setTitle:title setWidth:width];
+    } else {
+    
+        NSString* title = [NSString stringWithFormat:@"空白 %.2fs",segment.duration];
+        cell = [maker makeSlienceCell:tableView withText:title];
     }
-    NSString* title = [NSString stringWithFormat:@"始于 %.2f，长 %.2f",segment.timestamp,segment.duration];
-    [maker LineCellWithCell:cell withTitle:title withWidth:width];
+    
     return cell;
 }
 

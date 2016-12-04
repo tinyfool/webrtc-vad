@@ -25,11 +25,11 @@ import UIKit
                 lineView.tag = 1001
                 cell!.contentView.addSubview(lineView)
             }
-        
+            cell?.textLabel?.textColor = UIColor.gray
             return cell!
     }
     
-    public func LineCell(cell:UITableViewCell,withTitle title:String, withWidth width:CGFloat) {
+    public func LineCell(cell:UITableViewCell,setTitle title:String, setWidth width:CGFloat) {
         
         cell.textLabel?.text = title
         
@@ -37,4 +37,16 @@ import UIKit
         lineView.frame = CGRect(x: 5,y: 5,width: width,height: 30)
     }
     
+    public func makeSlienceCell(_ tableView: UITableView, withText text:String) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "sliencecell")
+        
+        if(cell==nil) {
+            
+            cell = UITableViewCell(style: .default, reuseIdentifier: "sliencecell")
+        }
+        cell?.textLabel?.text = text
+        cell?.textLabel?.textColor = UIColor.gray
+        return cell!
+    }
 }
