@@ -10,7 +10,7 @@
 #import "vadexample-Swift.h"
 #import <AVFoundation/AVFoundation.h>
 #import <webrtcvad/webrtcvad.h>
-
+#import <Speech/Speech.h>
 
 @interface ViewController () {
 
@@ -18,6 +18,8 @@
     __weak IBOutlet UITableView *voiceTableView;
     AVAudioPlayer* player;
     NSTimer* timer;
+    NSURL *fileUrl;
+    SFSpeechRecognizer* recognizer;
 }
 @end
 
@@ -63,7 +65,7 @@
 - (IBAction)readaudio:(id)sender {
     
     //test-16000.wav
-    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"lisp" withExtension:@"mp3"];
+    fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
 //    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"testbig" withExtension:@"mp3"];
     
     NSError* error;
@@ -81,15 +83,53 @@
     
     VoiceSegment* segment = (VoiceSegment*)[data objectAtIndex:indexPath.row];
     [self playAtTime:segment.timestamp withDuration:segment.duration];
+    
+    if(!recognizer) {
+        recognizer = [[SFSpeechRecognizer alloc]
+                      initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    }
+    [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
+        switch (status) {
+            case SFSpeechRecognizerAuthorizationStatusAuthorized:
+                [self recongizeFrom:segment.timestamp withDuration:segment.duration];
+                break;
+            case SFSpeechRecognizerAuthorizationStatusNotDetermined:
+                NSLog(@"用户还没同意");
+                break;
+            case SFSpeechRecognizerAuthorizationStatusRestricted:
+                NSLog(@"设备不支持");
+            case SFSpeechRecognizerAuthorizationStatusDenied:
+                NSLog(@"没有权限");
+            default:
+                break;
+        }
+    }];
     return NULL;
+}
+
+- (void) recongizeFrom:(NSTimeInterval)time
+           withDuration:(NSTimeInterval)duration {
+    
+    [self trimAudioFileURL:fileUrl from:time to:time+duration withHandle:^(NSURL * url) {
+        
+        SFSpeechURLRecognitionRequest* request = [[SFSpeechURLRecognitionRequest alloc] initWithURL:url];
+        [recognizer recognitionTaskWithRequest:request resultHandler:^(SFSpeechRecognitionResult * _Nullable result, NSError * _Nullable error) {
+            
+            if (!result)
+                NSLog(@"%@",[error localizedDescription]);
+            else {
+            
+                NSLog(@"%@",result);
+                speechLabel.text = result.bestTranscription.formattedString;
+            }
+            [[NSFileManager defaultManager] removeItemAtURL:url error:NULL];
+        }];
+    }];
 }
 
 - (void)playAtTime:(NSTimeInterval)time withDuration:(NSTimeInterval)duration {
     
     NSTimeInterval shortStartDelay = 0.01;
-    NSTimeInterval now = player.deviceCurrentTime;
-    
-//    [player playAtTime:now + shortStartDelay];
     
     player.currentTime = time + shortStartDelay;
     [player play];
@@ -116,5 +156,69 @@
     [super didReceiveMemoryWarning];
 }
 
+- (NSURL*)trimAudioFileURL:(NSURL*)audioFileInput from:(NSTimeInterval)vocalStartMarker to:(NSTimeInterval)vocalEndMarker withHandle:(void (^)(NSURL*))handler
+{
+    
+    NSURL *audioFileOutput =[NSURL fileURLWithPath:[self pathForTemporaryFileWithPrefix:@"AudioForRecognition" andExt:@"m4a"]];
+    
+    if (!audioFileInput || !audioFileOutput)
+    {
+        return nil;
+    }
+    
+    [[NSFileManager defaultManager] removeItemAtURL:audioFileOutput error:NULL];
+    AVAsset *asset = [AVAsset assetWithURL:audioFileInput];
+    
+    AVAssetExportSession *exportSession = [AVAssetExportSession exportSessionWithAsset:asset
+                                                                            presetName:AVAssetExportPresetAppleM4A];
+    
+    if (exportSession == nil)
+    {
+        return nil;
+    }
+    
+    CMTime startTime = CMTimeMake((int)(floor(vocalStartMarker * 100)), 100);
+    CMTime stopTime = CMTimeMake((int)(ceil(vocalEndMarker * 100)), 100);
+    CMTimeRange exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime);
+    
+    exportSession.outputURL = audioFileOutput;
+    exportSession.outputFileType = AVFileTypeAppleM4A;
+    exportSession.timeRange = exportTimeRange;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^
+     {
+         if (AVAssetExportSessionStatusCompleted == exportSession.status)
+         {
+             NSLog(@"%@",audioFileOutput);
+             handler(audioFileOutput);
+         }
+         else if (AVAssetExportSessionStatusFailed == exportSession.status)
+         {
+             // It failed...
+         }
+     }];
+    return audioFileOutput;
+}
+
+- (NSString *)pathForTemporaryFileWithPrefix:(NSString *)prefix andExt:(NSString*)ExtName
+{
+    NSString *  result;
+    CFUUIDRef   uuid;
+    CFStringRef uuidStr;
+    
+    uuid = CFUUIDCreate(NULL);
+    assert(uuid != NULL);
+    
+    uuidStr = CFUUIDCreateString(NULL, uuid);
+    assert(uuidStr != NULL);
+    
+    result = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.%@", prefix, uuidStr,ExtName]];
+    assert(result != nil);
+    
+    CFRelease(uuidStr);
+    CFRelease(uuid);
+    
+    return result;
+}
 
 @end
