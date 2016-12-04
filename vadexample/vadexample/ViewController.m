@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "VoiceTableViewCell.h"
+#import "vadexample-Swift.h"
 
-static NSString* VoiceTableCellIdentifier = @"VoiceTableCellIdentifier";
+
 @interface ViewController () {
 
     NSArray* data;
@@ -21,7 +21,6 @@ static NSString* VoiceTableCellIdentifier = @"VoiceTableCellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [voiceTableView registerClass:[VoiceTableViewCell class] forCellReuseIdentifier:VoiceTableCellIdentifier];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -33,16 +32,16 @@ static NSString* VoiceTableCellIdentifier = @"VoiceTableCellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    VoiceTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:VoiceTableCellIdentifier forIndexPath:indexPath];
     VoiceSegment* segment = (VoiceSegment*)[data objectAtIndex:indexPath.row];
-    if (segment.isVoice)
-        cell.textLabel.text = [NSString stringWithFormat:@"开始于%.2fs 持续%.2fs",
-                           segment.timestamp,
-                           segment.duration];
-    else
-        cell.textLabel.text = [NSString stringWithFormat:@"空白%.2fs",
-                               segment.duration];
-
+    CellMaker* maker = [[CellMaker alloc] init];
+    UITableViewCell* cell = [maker makeLineCell:tableView];
+    CGFloat width = segment.duration*20;
+    if (width > tableView.bounds.size.width - 10) {
+    
+        width = tableView.bounds.size.width - 10;
+    }
+    NSString* title = [NSString stringWithFormat:@"始于 %.2f，长 %.2f",segment.timestamp,segment.duration];
+    [maker LineCellWithCell:cell withTitle:title withWidth:width];
     return cell;
 }
 

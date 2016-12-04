@@ -7,3 +7,4 @@
 *.xcuserstate
 
 webrtc-vad.xcworkspace/xcuserdata/haopeiqiang.xcuserdatad/UserInterfaceState.xcuserstate
+.DS_Store
