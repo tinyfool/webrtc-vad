@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		152A40D21DF4424400FBD34C /* pixar.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 152A40D11DF4424400FBD34C /* pixar.m4a */; };
 		156A12DA1D8CEF79009DA94B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156A12D91D8CEF79009DA94B /* AudioToolbox.framework */; };
 		156A12DC1D8CEFF3009DA94B /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = 156A12DB1D8CEFF3009DA94B /* test.wav */; };
 		156A12DE1D8CFADC009DA94B /* p.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 156A12DD1D8CFADC009DA94B /* p.mp3 */; };
@@ -74,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		152A40D11DF4424400FBD34C /* pixar.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pixar.m4a; sourceTree = "<group>"; };
 		156A12D91D8CEF79009DA94B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		156A12DB1D8CEFF3009DA94B /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		156A12DD1D8CFADC009DA94B /* p.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = p.mp3; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		157B45CB1D8CDDB5008DC706 /* vadexample */ = {
 			isa = PBXGroup;
 			children = (
+				152A40D11DF4424400FBD34C /* pixar.m4a */,
 				15B65B971DF42E320073537D /* english.wav */,
 				15DFF47C1D923617007C2411 /* 44100.mp3 */,
 				156A12E31D8D7BFA009DA94B /* t.mp3 */,
@@ -382,6 +385,7 @@
 				156A12E21D8D6554009DA94B /* test.aiff in Resources */,
 				157B45D71D8CDDB5008DC706 /* Main.storyboard in Resources */,
 				156A12E41D8D7BFA009DA94B /* t.mp3 in Resources */,
+				152A40D21DF4424400FBD34C /* pixar.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

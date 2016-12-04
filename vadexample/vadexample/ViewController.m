@@ -65,7 +65,7 @@
 - (IBAction)readaudio:(id)sender {
     
     //test-16000.wav
-    fileUrl = [[NSBundle mainBundle] URLForResource:@"44100" withExtension:@"mp3"];
+    fileUrl = [[NSBundle mainBundle] URLForResource:@"pixar" withExtension:@"m4a"];
 //    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"testbig" withExtension:@"mp3"];
     
     NSError* error;
